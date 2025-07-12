@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Products</title>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.83/dist/shoelace.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.83/dist/themes/light.css" />
+</head>
+<body style="font-family: sans-serif; max-width: 800px; margin: auto;">
+
+<h1>Product Dashboard</h1>
+
+<button
+        hx-get="/products"
+        hx-target="#product-table"
+        hx-swap="innerHTML"
+        class="btn btn-primary">
+    Load Products
+</button>
+
+<div id="product-table" style="margin-top: 20px;">
+    <!-- HTMX will load the table here -->
+</div>
+
+<h2>Add New Product</h2>
+<form
+        hx-post="/products"
+        hx-target="#product-table"
+        hx-swap="innerHTML"
+        style="display: flex; flex-direction: column; gap: 10px;">
+
+    <input type="text" name="title" placeholder="Title" required>
+    <input type="number" name="price" step="0.01" placeholder="Price" required>
+    <textarea name="variant" placeholder="Variant JSON (optional)"></textarea>
+    <button type="submit" class="btn btn-success">Add</button>
+</form>
+
+</body>
+</html>
