@@ -1,15 +1,103 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product App</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .search-redirect-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.75rem 1rem;
+            max-height: 3rem;
+            line-height: 1;
+        }
+
+        .search-redirect-btn:hover {
+            transform: translateX(2px);
+        }
+
+        .search-redirect-btn .redirect-icon {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            transition: transform 0.2s ease;
+        }
+
+        .search-redirect-btn:hover .redirect-icon {
+            transform: translateX(2px);
+        }
+
+        /* Make all navigation buttons have consistent height */
+        .action-button {
+            min-height: 3rem;
+        }
+
+        .search-redirect-btn {
+            min-height: 3rem;
+        }
+    </style>
 </head>
-<body>
-<h1>Product List</h1>
-<ul>
-    <li th:each="product : ${products}">
-        <strong th:text="${product.title}">Title</strong> —
-        <span th:text="${product.price}">Price</span>
-    </li>
-</ul>
+<body class="container">
+<header style="text-align: center; margin-bottom: 3rem; padding-top: 2rem;">
+    <h1 style="margin-bottom: 0.5rem; font-size: 2.5rem; font-weight: 700;">
+        <i class="fas fa-store" style="color: var(--pico-primary);"></i> Product Dashboard
+    </h1>
+    <p style="color: var(--pico-muted-color); font-size: 1.125rem; margin-bottom: 0;">
+        Manage your product catalog with ease
+    </p>
+</header>
+
+<main style="margin-top: 2rem;">
+    <!-- Buttons section -->
+    <section style="margin-bottom: 2rem;">
+        <!--  Buttons -->
+        <div class="grid" style="gap: 1rem; margin-bottom: 0;">
+            <button hx-get="/products" hx-target="#product-table" hx-swap="innerHTML" class="contrast action-button">
+                <i class="fas fa-sync-alt"></i> Load Products
+            </button>
+
+            <button hx-get="/fragments/productForm" hx-target="#add-product-form" hx-swap="innerHTML" onclick="document.getElementById('add-product-form').style.display='block'" class="secondary action-button">
+                <i class="fas fa-plus"></i> Add Product
+            </button>
+
+            <!-- Search Products button -->
+            <a href="/products/search" class="contrast search-redirect-btn" role="button">
+                <i class="fas fa-search"></i>
+                Search Products
+                <i class="fas fa-arrow-right redirect-icon"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="add-product-form" style="display: none; margin-bottom: 2rem; padding: 1.5rem; background: var(--pico-card-background-color); border-radius: 0.5rem; border: 1px solid var(--pico-border-color);">
+        <!-- Product form will be loaded here -->
+    </section>
+
+    <!-- Added edit product modal for in-place editing -->
+    <section id="edit-product-modal" style="display: none; margin-bottom: 2rem;">
+        <!-- Edit product form will be loaded here -->
+    </section>
+
+    <section style="margin-top: 2rem;">
+        <div id="product-table">
+            <!-- Products will be loaded when Load Products button is clicked -->
+            <div style="text-align: center; padding: 3rem; color: var(--pico-muted-color);">
+                <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                <h3 style="margin-bottom: 0.5rem;">No Products Loaded</h3>
+                <p>Click "Load Products" to view your product catalog</p>
+            </div>
+        </div>
+    </section>
+</main>
 </body>
 </html>
