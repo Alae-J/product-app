@@ -1,0 +1,58 @@
+### Get All Products (Load Products)
+GET http://localhost:8080/products
+
+###
+
+### Get Products with Search
+GET http://localhost:8080/products?title=shirt
+
+###
+
+### Add New Product
+POST http://localhost:8080/products
+Content-Type: application/x-www-form-urlencoded
+
+title=Test Product&price=29.99&variantText=Small, Medium, Large
+
+###
+
+### Update Product
+POST http://localhost:8080/products/1
+Content-Type: application/x-www-form-urlencoded
+
+title=Updated Product Name&price=39.99&variantText=XS, S, M, L, XL&isFavorite=true
+
+###
+
+### Toggle Product Favorite
+POST http://localhost:8080/products/1/favorite
+
+###
+
+### Delete Product
+DELETE http://localhost:8080/products/1
+
+###
+
+### Get Product Edit Form
+GET http://localhost:8080/fragments/editProductForm/1
+
+###
+
+### Get Add Product Form
+GET http://localhost:8080/fragments/productForm
+
+###
+
+### Search Page
+GET http://localhost:8080/products/search
+
+###
+
+### Home Page
+GET http://localhost:8080/
+
+###
+
+### Our External API (What we import from)
+GET https://famme.no/products.json

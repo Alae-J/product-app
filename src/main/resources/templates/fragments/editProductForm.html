@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Product Form Fragment</title>
+</head>
+<body>
+
+<!-- Updated edit form with dark theme styling and comma-separated variants input for better UX -->
+<div th:fragment="form">
+    <form th:attr="hx-post=|/products/${product.id}|"
+          hx-target="#product-table" 
+          hx-swap="innerHTML" 
+          hx-indicator="#loading"
+          class="contrast"
+          style="max-width: 600px; margin: 0 auto; background: var(--pico-card-background-color); padding: 2rem; border-radius: var(--pico-border-radius); border: 1px solid var(--pico-border-color); box-shadow: var(--pico-card-box-shadow);">
+        
+        <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 600; text-align: center; color: var(--pico-color);">
+            Edit Product Details
+        </h2>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label for="title">Product Title</label>
+            <input type="text" 
+                   id="title" 
+                   name="title" 
+                   th:value="${product.title}"
+                   placeholder="Enter product title" 
+                   required>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label for="price">Price</label>
+            <input type="number" 
+                   id="price" 
+                   name="price" 
+                   th:value="${product.price}"
+                   step="0.01" 
+                   min="0" 
+                   placeholder="0.00" 
+                   required>
+        </div>
+
+        <!-- Replaced JSON textarea with user-friendly comma-separated input -->
+        <div style="margin-bottom: 1.5rem;">
+            <label for="variantText">Variants</label>
+            <input type="text" 
+                   id="variantText" 
+                   name="variantText" 
+                   th:value="${variantText}"
+                   placeholder="Small, Medium, Large, XL" 
+                   style="width: 100%;">
+            <small style="color: var(--pico-muted-color); display: block; margin-top: 0.5rem;">
+                Optional: Enter variants separated by commas. Example: "Small, Medium, Large"
+            </small>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label>
+                <input type="checkbox" 
+                       name="isFavorite" 
+                       value="true"
+                       th:checked="${product.isFavorite}">
+                <i class="fas fa-star" style="color: var(--pico-color);"></i> Mark as favorite
+            </label>
+        </div>
+
+        <!-- Updated buttons to return to product table view -->
+        <div class="grid" style="margin-top: 2rem;">
+            <button type="button" 
+                    class="secondary contrast"
+                    hx-get="/products"
+                    hx-target="#product-table"
+                    hx-swap="innerHTML">
+                <i class="fas fa-times"></i> Cancel
+            </button>
+            <button type="submit" class="contrast">
+                <span id="loading" class="htmx-indicator" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i> Updating...
+                </span>
+                <span class="htmx-request-indicator">
+                    <i class="fas fa-save"></i> Update Product
+                </span>
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
