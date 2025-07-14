@@ -39,13 +39,20 @@ class ProductController(private val productService: ProductService) {
     }
 
     @GetMapping("/products")
-    fun getProducts(@RequestParam(required = false) title: String?, model: Model): String {
+    fun getProducts(
+        @RequestParam(required = false) title: String?,
+        @RequestParam(required = false, defaultValue = "title") sortBy: String,
+        @RequestParam(required = false, defaultValue = "asc") sortDir: String,
+        model: Model
+    ): String {
         val products = if (title.isNullOrBlank()) {
-            productService.findAll()
+            productService.findAllSorted(sortBy, sortDir)
         } else {
-            productService.findByTitleContainingIgnoreCase(title)
+            productService.findByTitleContainingIgnoreCaseSorted(title, sortBy, sortDir)
         }
         model.addAttribute("products", products)
+        model.addAttribute("sortBy", sortBy)
+        model.addAttribute("sortDir", sortDir)
         return "fragments/products-table :: table"
     }
 

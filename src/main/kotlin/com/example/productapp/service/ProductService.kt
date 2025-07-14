@@ -2,6 +2,7 @@ package com.example.productapp.service
 
 import com.example.productapp.model.Product
 import com.example.productapp.repository.ProductRepository
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
@@ -12,8 +13,28 @@ class ProductService(private val productRepository: ProductRepository) {
         return productRepository.findAllByOrderByTitleAsc()
     }
 
+    fun findAllSorted(sortBy: String, sortDir: String): List<Product> {
+        val sort = createSort(sortBy, sortDir)
+        return productRepository.findAll(sort)
+    }
+
     fun findByTitleContainingIgnoreCase(title: String): List<Product> {
         return productRepository.findByTitleContainingIgnoreCaseOrderByTitleAsc(title)
+    }
+
+    fun findByTitleContainingIgnoreCaseSorted(title: String, sortBy: String, sortDir: String): List<Product> {
+        val sort = createSort(sortBy, sortDir)
+        return productRepository.findByTitleContainingIgnoreCase(title, sort)
+    }
+
+    private fun createSort(sortBy: String, sortDir: String): Sort {
+        val direction = if (sortDir.lowercase() == "desc") Sort.Direction.DESC else Sort.Direction.ASC
+        val property = when (sortBy.lowercase()) {
+            "price" -> "price"
+            "title" -> "title"
+            else -> "title"
+        }
+        return Sort.by(direction, property)
     }
 
     fun findById(id: Long): Product? {
