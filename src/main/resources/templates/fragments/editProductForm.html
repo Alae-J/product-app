@@ -3,85 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Product Form Fragment</title>
+    <script type="module" src="https://unpkg.com/@web-awesome/components/dist/webawesome.min.js"></script>
+    <style>
+        .modern-form {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .form-header h2 {
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-header p {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .form-field {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-field label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-field input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .form-field input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+        
+        .form-field small {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+        
+        .checkbox-field {
+            margin-bottom: 1.5rem;
+        }
+        
+        .checkbox-field label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .checkbox-field input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f1f5f9;
+        }
+        
+        .form-actions wa-button {
+            flex: 1;
+            min-height: 48px;
+            font-weight: 500;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .modern-form {
+                margin: 0 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Updated edit form with dark theme styling and comma-separated variants input for better UX -->
 <div th:fragment="form">
     <form th:attr="hx-post=|/products/${product.id}|"
           hx-target="#product-table" 
           hx-swap="innerHTML" 
           hx-indicator="#loading"
-          class="contrast"
-          style="max-width: 600px; margin: 0 auto; background: var(--pico-card-background-color); padding: 2rem; border-radius: var(--pico-border-radius); border: 1px solid var(--pico-border-color); box-shadow: var(--pico-card-box-shadow);">
+          class="modern-form">
         
-        <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 600; text-align: center; color: var(--pico-color);">
-            Edit Product Details
-        </h2>
+        <div class="form-header">
+            <h2><wa-icon name="edit" style="color: #3b82f6;"></wa-icon> Edit Product</h2>
+            <p>Update the product information below</p>
+        </div>
         
-        <div style="margin-bottom: 1.5rem;">
-            <label for="title">Product Title</label>
-            <input type="text" 
-                   id="title" 
-                   name="title" 
-                   th:value="${product.title}"
-                   placeholder="Enter product title" 
-                   required>
+        <div class="form-grid">
+            <div class="form-field">
+                <label for="title">Product Title *</label>
+                <input type="text" 
+                       id="title" 
+                       name="title" 
+                       th:value="${product.title}"
+                       placeholder="Enter product title" 
+                       required>
+            </div>
+
+            <div class="form-field">
+                <label for="price">Price *</label>
+                <input type="number" 
+                       id="price" 
+                       name="price" 
+                       th:value="${product.price}"
+                       step="0.01" 
+                       min="0" 
+                       placeholder="0.00" 
+                       required>
+            </div>
         </div>
 
-        <div style="margin-bottom: 1.5rem;">
-            <label for="price">Price</label>
-            <input type="number" 
-                   id="price" 
-                   name="price" 
-                   th:value="${product.price}"
-                   step="0.01" 
-                   min="0" 
-                   placeholder="0.00" 
-                   required>
-        </div>
-
-        <!-- Replaced JSON textarea with user-friendly comma-separated input -->
-        <div style="margin-bottom: 1.5rem;">
-            <label for="variantText">Variants</label>
+        <div class="form-field">
+            <label for="variantText">Variants (Optional)</label>
             <input type="text" 
                    id="variantText" 
                    name="variantText" 
                    th:value="${variantText}"
-                   placeholder="Small, Medium, Large, XL" 
-                   style="width: 100%;">
-            <small style="color: var(--pico-muted-color); display: block; margin-top: 0.5rem;">
-                Optional: Enter variants separated by commas. Example: "Small, Medium, Large"
-            </small>
+                   placeholder="Small, Medium, Large, XL">
+            <small>Enter variants separated by commas. Example: "Small, Medium, Large"</small>
         </div>
 
-        <div style="margin-bottom: 1.5rem;">
+        <div class="checkbox-field">
             <label>
                 <input type="checkbox" 
                        name="isFavorite" 
                        value="true"
                        th:checked="${product.isFavorite}">
-                <i class="fas fa-star" style="color: var(--pico-color);"></i> Mark as favorite
+                <wa-icon name="star" style="color: #fbbf24;"></wa-icon> Mark as favorite
             </label>
         </div>
 
-        <!-- Updated buttons to return to product table view -->
-        <div class="grid" style="margin-top: 2rem;">
-            <button type="button" 
-                    class="secondary contrast"
+        <div class="form-actions">
+            <wa-button type="button" 
+                    variant="secondary"
                     hx-get="/products"
                     hx-target="#product-table"
                     hx-swap="innerHTML">
-                <i class="fas fa-times"></i> Cancel
-            </button>
-            <button type="submit" class="contrast">
+                <wa-icon name="times"></wa-icon> Cancel
+            </wa-button>
+            <wa-button type="submit" variant="primary">
                 <span id="loading" class="htmx-indicator" style="display: none;">
-                    <i class="fas fa-spinner fa-spin"></i> Updating...
+                    <wa-icon name="spinner"></wa-icon> Updating...
                 </span>
                 <span class="htmx-request-indicator">
-                    <i class="fas fa-save"></i> Update Product
+                    <wa-icon name="save"></wa-icon> Update Product
                 </span>
-            </button>
+            </wa-button>
         </div>
     </form>
 </div>

@@ -1,5 +1,97 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="module" src="https://unpkg.com/@web-awesome/components/dist/webawesome.min.js"></script>
+    <style>
+        .modern-form {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .form-header h2 {
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-header p {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .form-field {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-field label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-field input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .form-field input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+        
+        .form-field small {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f1f5f9;
+        }
+        
+        .form-actions wa-button {
+            flex: 1;
+            min-height: 48px;
+            font-weight: 500;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
 <body>
 <div th:fragment="form">
     <form
@@ -7,30 +99,38 @@
         hx-target="#product-table"
         hx-swap="innerHTML"
         hx-on::after-request="this.reset(); document.getElementById('add-product-form').style.display='none'"
-        style="margin: 0;">
+        class="modern-form">
         
-        <div class="grid">
-            <label for="title">
-                Product Title
-                <input type="text" id="title" name="title" placeholder="Enter product title" required>
-            </label>
-            
-            <label for="price">
-                Price
-                <input type="number" id="price" name="price" step="0.01" min="0" placeholder="0.00" required>
-            </label>
+        <div class="form-header">
+            <h2><wa-icon name="plus" style="color: #3b82f6;"></wa-icon> Add New Product</h2>
+            <p>Fill out the form below to add a new product to your catalog</p>
         </div>
         
-        <!-- Updated to use comma-separated variants for consistency with edit form -->
-        <label for="variantText">
-            Variants (Optional)
+        <div class="form-grid">
+            <div class="form-field">
+                <label for="title">Product Title *</label>
+                <input type="text" id="title" name="title" placeholder="Enter product title" required>
+            </div>
+            
+            <div class="form-field">
+                <label for="price">Price *</label>
+                <input type="number" id="price" name="price" step="0.01" min="0" placeholder="0.00" required>
+            </div>
+        </div>
+        
+        <div class="form-field">
+            <label for="variantText">Variants (Optional)</label>
             <input type="text" id="variantText" name="variantText" placeholder="Small, Medium, Large, XL">
             <small>Enter variants separated by commas</small>
-        </label>
+        </div>
         
-        <div class="grid" style="margin-top: 1rem;">
-            <button type="submit" class="contrast"><i class="fas fa-save"></i> Add Product</button>
-            <button type="button" onclick="document.getElementById('add-product-form').style.display='none'" class="secondary"><i class="fas fa-times"></i> Cancel</button>
+        <div class="form-actions">
+            <wa-button type="button" variant="secondary" onclick="document.getElementById('add-product-form').style.display='none'">
+                <wa-icon name="times"></wa-icon> Cancel
+            </wa-button>
+            <wa-button type="submit" variant="primary">
+                <wa-icon name="save"></wa-icon> Add Product
+            </wa-button>
         </div>
     </form>
 </div>
