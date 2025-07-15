@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Web Awesome CSS and Loader -->
-    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/themes/default.css" />
-    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/webawesome.loader.js"></script>
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/styles/webawesome.css" />
+    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/webawesome.loader.js"></script>
 
     <style>
         body {
@@ -164,7 +164,9 @@
         }
 
         .search-input-container label {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
             width: 100%;
         }
 
@@ -201,6 +203,9 @@
             margin-bottom: 2rem;
         }
 
+        .search-input-container strong {
+            color: #f1f5f9;
+        }
 
         @media (max-width: 768px) {
             .nav-container {
@@ -246,15 +251,19 @@
         <div class="search-input-container">
             <label style="width: 100%;">
                 <strong>Search Products</strong>
-                <input type="search"
-                       placeholder="Start typing to search products..."
-                       hx-get="/products"
-                       hx-target="#product-table"
-                       hx-swap="innerHTML"
-                       hx-trigger="keyup changed delay:300ms, search"
-                       name="title"
-                       autocomplete="off"
-                       style="width: 100%; max-width: none;">
+                <wa-input
+                        type="search"
+                        placeholder="Start typing to search products..."
+                        size="medium"
+                        pill
+                        name="title"
+                        autocomplete="off"
+                        hx-get="/products"
+                        hx-target="#product-table"
+                        hx-swap="innerHTML"
+                        hx-trigger="keyup changed delay:300ms, search"
+                        style="width: 100%; max-width: none;">
+                </wa-input>
             </label>
         </div>
     </div>

@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Web Awesome CSS and Loader -->
-    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/themes/default.css" />
-    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/webawesome.loader.js"></script>
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/styles/webawesome.css" />
+    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/webawesome.loader.js"></script>
 
     <style>
         body {
@@ -293,13 +293,12 @@
                 <wa-icon name="arrows-rotate" style="color: #3b82f6;"></wa-icon> Load Products
             </h3>
             <p style="color: #94a3b8; margin-bottom: 1rem;">View all products in your catalog</p>
-            <button type="button"
-                    class="action-button primary"
-                    hx-get="/products"
-                    hx-target="#product-table"
-                    hx-swap="innerHTML">
-                <wa-icon name="arrows-rotate"></wa-icon> Load Products
-            </button>
+            <div style="display: flex; justify-content: center;">
+                <wa-button appearance="accent" variant="brand" size="large" hx-get="/products" hx-target="#product-table" hx-swap="innerHTML">
+                    <wa-icon slot="end" name="undo"></wa-icon>
+                    Load Products
+                </wa-button>
+            </div>
         </div>
 
         <div class="action-card">
@@ -307,14 +306,11 @@
                 <wa-icon name="plus" style="color: #10b981;"></wa-icon> Add Product
             </h3>
             <p style="color: #94a3b8; margin-bottom: 1rem;">Create a new product entry</p>
-            <button type="button"
-                    class="action-button success"
-                    hx-get="/fragments/productForm"
-                    hx-target="#add-product-form"
-                    hx-swap="innerHTML"
-                    onclick="document.getElementById('add-product-form').style.display='block'">
-                <wa-icon name="plus"></wa-icon> Add Product
-            </button>
+            <div style="display: flex; justify-content: center;">
+                <wa-button variant="success" size="large" hx-get="/fragments/productForm" hx-target="#add-product-form" hx-swap="innerHTML" onclick="document.getElementById('add-product-form').style.display='block'">
+                    Add Product
+                </wa-button>
+            </div>
         </div>
 
         <div class="action-card">
@@ -322,11 +318,12 @@
                 <wa-icon name="magnifying-glass" style="color: #8b5cf6;"></wa-icon> Search Products
             </h3>
             <p style="color: #94a3b8; margin-bottom: 1rem;">Find products by name or details</p>
-            <button type="button"
-                    class="action-button primary"
-                    onclick="location.href='/products/search'">
-                <wa-icon name="magnifying-glass"></wa-icon> Search Products
-            </button>
+            <div style="display: flex; justify-content: center;">
+                <wa-button size="large" onclick="location.href='/products/search'">
+                    <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
+                    Search Products
+                </wa-button>
+            </div>
         </div>
     </div>
 
@@ -350,7 +347,7 @@
 </div>
 
 <script type="module">
-    import { allDefined } from 'https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/webawesome.js';
+    import { allDefined } from 'https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/webawesome.js';
 
     // Wait for all Web Awesome components to be ready
     await allDefined();
