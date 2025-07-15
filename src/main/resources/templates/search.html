@@ -6,8 +6,12 @@
     <title>Search Products</title>
     <script src="https://unpkg.com/htmx.org@1.9.6"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script type="module" src="https://unpkg.com/@web-awesome/components/dist/webawesome.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Web Awesome CSS and Loader -->
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/themes/default.css" />
+    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/webawesome.loader.js"></script>
+
     <style>
         body {
             margin: 0;
@@ -16,8 +20,6 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             color: #f1f5f9;
         }
-
-        /* --- PASTE THIS INTO YOUR search.html <STYLE> TAG --- */
 
         .professional-navbar {
             background: rgba(15, 23, 42, 0.95);
@@ -58,18 +60,18 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        
+
         .nav-brand:hover {
             color: #3b82f6;
             transform: translateX(2px);
         }
-        
+
         .nav-brand wa-icon {
             margin-right: 0.75rem;
             color: #3b82f6;
             font-size: 1.75rem;
         }
-        
+
         .nav-button {
             display: flex;
             align-items: center;
@@ -85,7 +87,7 @@
             border: 1px solid transparent;
             background: transparent;
         }
-        
+
         .nav-button:hover {
             background: rgba(59, 130, 246, 0.1);
             color: #3b82f6;
@@ -93,56 +95,60 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
         }
-        
+
         .nav-button wa-icon {
             font-size: 1rem;
             transition: all 0.2s ease;
         }
-        
+
         .nav-button:hover wa-icon {
             transform: scale(1.1);
         }
-        
+
         .nav-button.primary {
             background: #3b82f6;
             color: white;
             border-color: #2563eb;
         }
-        
+
         .nav-button.primary:hover {
             background: #2563eb;
             color: white;
             transform: translateY(-1px);
             box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
         }
-        
-        
+
+
         .main-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
-        
+
         .hero-section {
             text-align: center;
             padding: 2rem 0;
             margin-bottom: 2rem;
         }
-        
+
         .hero-title {
             font-size: 2.5rem;
             font-weight: 800;
             color: white;
             margin-bottom: 1rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
         }
-        
+
         .hero-subtitle {
             font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.9);
             margin-bottom: 2rem;
         }
-        
+
         .search-section {
             background: rgba(30, 41, 59, 0.8);
             padding: 2rem;
@@ -152,16 +158,16 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             margin-bottom: 2rem;
         }
-        
+
         .search-input-container {
             width: 100%;
         }
-        
+
         .search-input-container label {
             display: block;
             width: 100%;
         }
-        
+
         .search-input-container input {
             font-size: 1.1rem;
             padding: 0.75rem 1rem;
@@ -169,12 +175,12 @@
             border-radius: 0.5rem;
             transition: all 0.2s ease;
         }
-        
+
         .search-input-container input:focus {
             border-color: #3b82f6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
-        
+
         .content-card {
             background: rgba(30, 41, 59, 0.8);
             padding: 2rem;
@@ -184,7 +190,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             margin-bottom: 2rem;
         }
-        
+
         .form-container {
             background: rgba(30, 41, 59, 0.8);
             padding: 2rem;
@@ -194,25 +200,26 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             margin-bottom: 2rem;
         }
-        
-        
+
+
         @media (max-width: 768px) {
             .nav-container {
                 padding: 0 1rem;
             }
-            
+
             .nav-links {
                 gap: 1rem;
             }
-            
+
             .hero-title {
                 font-size: 2rem;
+                flex-direction: column;
+                gap: 0.5rem;
             }
-            
+
             .main-container {
                 padding: 1rem;
             }
-            
         }
     </style>
     <script>
@@ -225,44 +232,53 @@
     </script>
 </head>
 <body>
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
-    
-    <div class="main-container">
-        <div class="hero-section">
-            <h1 class="hero-title">
-                <wa-icon name="search" style="color: rgba(255, 255, 255, 0.9);"></wa-icon> Search Products
-            </h1>
-            <p class="hero-subtitle">Find products by typing in the search box below</p>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="main-container">
+    <div class="hero-section">
+        <h1 class="hero-title">
+            <wa-icon name="magnifying-glass" style="color: rgba(255, 255, 255, 0.9);"></wa-icon> Search Products
+        </h1>
+        <p class="hero-subtitle">Find products by typing in the search box below</p>
+    </div>
+
+    <div class="search-section">
+        <div class="search-input-container">
+            <label style="width: 100%;">
+                <strong>Search Products</strong>
+                <input type="search"
+                       placeholder="Start typing to search products..."
+                       hx-get="/products"
+                       hx-target="#product-table"
+                       hx-swap="innerHTML"
+                       hx-trigger="keyup changed delay:300ms, search"
+                       name="title"
+                       autocomplete="off"
+                       style="width: 100%; max-width: none;">
+            </label>
         </div>
-        
-        <div class="search-section">
-            <div class="search-input-container">
-                <label style="width: 100%;">
-                    <strong>Search Products</strong>
-                    <input type="search" 
-                           placeholder="Start typing to search products..." 
-                           hx-get="/products" 
-                           hx-target="#product-table" 
-                           hx-swap="innerHTML" 
-                           hx-trigger="keyup changed delay:300ms, search" 
-                           name="title" 
-                           autocomplete="off"
-                           style="width: 100%; max-width: none;">
-                </label>
-            </div>
-        </div>
-        
-        <div id="edit-product-modal" class="form-container" style="display: none;">
-            <!-- Edit product form will be loaded here -->
-        </div>
-        
-        <div class="content-card">
-            <div id="search-results">
-                <div id="product-table">
-                    <div th:replace="~{fragments/products-table :: table}"></div>
-                </div>
+    </div>
+
+    <div id="edit-product-modal" class="form-container" style="display: none;">
+        <!-- Edit product form will be loaded here -->
+    </div>
+
+    <div class="content-card">
+        <div id="search-results">
+            <div id="product-table">
+                <div th:replace="~{fragments/products-table :: table}"></div>
             </div>
         </div>
     </div>
+</div>
+
+<script type="module">
+    import { allDefined } from 'https://early.webawesome.com/webawesome@3.0.0-alpha.4/dist/webawesome.js';
+
+    // Wait for all Web Awesome components to be ready
+    await allDefined();
+    console.log('All Web Awesome components are ready on search page!');
+</script>
+
 </body>
 </html>

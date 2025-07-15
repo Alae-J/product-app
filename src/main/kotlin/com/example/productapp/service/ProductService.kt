@@ -18,10 +18,6 @@ class ProductService(private val productRepository: ProductRepository) {
         return productRepository.findAll(sort)
     }
 
-    fun findByTitleContainingIgnoreCase(title: String): List<Product> {
-        return productRepository.findByTitleContainingIgnoreCaseOrderByTitleAsc(title)
-    }
-
     fun findByTitleContainingIgnoreCaseSorted(title: String, sortBy: String, sortDir: String): List<Product> {
         val sort = createSort(sortBy, sortDir)
         return productRepository.findByTitleContainingIgnoreCase(title, sort)

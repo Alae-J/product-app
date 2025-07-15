@@ -253,7 +253,6 @@
             <td>
                 <div class="product-title">
                     <span th:text="${product.title}">Sample Product</span>
-                    <i th:if="${product.isFavorite}" class="fas fa-star favorite-star"></i>
                 </div>
             </td>
             <td>
@@ -270,31 +269,34 @@
             </td>
             <td>
                 <div class="action-buttons">
-                    <button 
-                        th:class="${product.isFavorite ? 'btn btn-warning btn-small' : 'btn btn-outline btn-small'}"
+                    <wa-button 
+                        th:variant="${product.isFavorite ? 'warning' : 'outline'}"
+                        size="small"
                         th:attr="hx-post=|/products/${product.id}/favorite|"
                         hx-target="#product-table"
                         hx-swap="innerHTML"
                         th:title="${product.isFavorite ? 'Remove from favorites' : 'Add to favorites'}">
-                        <i class="fas fa-star"></i>
-                    </button>
+                        <wa-icon name="star"></wa-icon>
+                    </wa-button>
                     
-                    <button 
-                        class="btn btn-primary btn-small"
+                    <wa-button 
+                        variant="primary"
+                        size="small"
                         th:attr="hx-get=|/fragments/editProductForm/${product.id}|"
                         hx-target="#product-table"
                         hx-swap="innerHTML">
-                        <i class="fas fa-edit"></i> Edit
-                    </button>
+                        <wa-icon name="edit"></wa-icon> Edit
+                    </wa-button>
                     
-                    <button 
-                        class="btn btn-danger btn-small"
+                    <wa-button 
+                        variant="danger"
+                        size="small"
                         th:attr="hx-delete=|/products/${product.id}|"
                         hx-target="#product-table"
                         hx-swap="innerHTML"
                         hx-confirm="Are you sure you want to delete this product?">
-                        <i class="fas fa-trash"></i> Delete
-                    </button>
+                        <wa-icon name="trash"></wa-icon> Delete
+                    </wa-button>
                 </div>
             </td>
         </tr>
