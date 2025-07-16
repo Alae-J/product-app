@@ -254,7 +254,10 @@
                     <i th:if="${sortBy != 'price'}" class="fas fa-sort sort-icon sort-neutral"></i>
                 </a>
             </th>
-            <th>Variants</th>
+            <th>
+                <wa-tooltip for="variants-header">Hover over variant items to see all available options</wa-tooltip>
+                <span id="variants-header">Variants</span>
+            </th>
             <th>Actions</th>
         </tr>
         </thead>
