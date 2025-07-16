@@ -1,0 +1,8 @@
+<div th:fragment="variants" class="expanded-variants">
+    <div th:if="${product.variant != null and product.variant != 'null' and product.variant != ''}" class="all-variants-container">
+        <div th:each="variant : ${#strings.listSplit(variantText, ',')}" class="variant-row">
+            <span class="variant-name" th:text="${#strings.trim(variant)}">Variant</span>
+        </div>
+    </div>
+    <span th:if="${product.variant == null or product.variant == 'null' or product.variant == ''}" class="no-variants">No variants available</span>
+</div>

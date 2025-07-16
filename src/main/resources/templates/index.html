@@ -8,23 +8,29 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!-- Web Awesome CSS and Loader -->
+    <!-- Colors -->
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/styles/color/palettes/default.css" />
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/styles/color/palettes/bright.css" />
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/styles/color/palettes/shoelace.css" />
+
+    <!-- Web Awesome core styles -->
     <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/styles/webawesome.css" />
     <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/webawesome.loader.js"></script>
+
 
     <style>
         body {
             margin: 0;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            background: linear-gradient(135deg, var(--wa-color-slate-900) 0%, var(--wa-color-slate-800) 50%, var(--wa-color-slate-700) 100%);
             min-height: 100vh;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: #f1f5f9;
+            color: var(--wa-color-slate-100);
         }
 
         .professional-navbar {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            border-bottom: 1px solid var(--wa-color-slate-600);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -51,20 +57,20 @@
             align-items: center;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #f1f5f9;
+            color: var(--wa-color-slate-100);
             text-decoration: none;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .nav-brand:hover {
-            color: #3b82f6;
+            color: var(--wa-color-blue-500);
             transform: translateX(2px);
         }
 
         .nav-brand wa-icon {
             margin-right: 0.75rem;
-            color: #3b82f6;
+            color: var(--wa-color-blue-500);
             font-size: 1.75rem;
         }
 
@@ -79,7 +85,7 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.625rem 1rem;
-            color: #e2e8f0;
+            color: var(--wa-color-slate-200);
             text-decoration: none;
             border-radius: 0.5rem;
             transition: all 0.2s ease;
@@ -92,7 +98,7 @@
 
         .nav-button:hover {
             background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
+            color: var(--wa-color-blue-500);
             border-color: rgba(59, 130, 246, 0.2);
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
@@ -108,13 +114,13 @@
         }
 
         .nav-button.primary {
-            background: #3b82f6;
+            background: var(--wa-color-blue-600);
             color: white;
-            border-color: #2563eb;
+            border-color: var(--wa-color-blue-700);
         }
 
         .nav-button.primary:hover {
-            background: #2563eb;
+            background: var(--wa-color-blue-700);
             color: white;
             transform: translateY(-1px);
             box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
@@ -136,15 +142,45 @@
         .hero-title {
             font-size: 3rem;
             font-weight: 800;
-            color: white;
+            color: var(--wa-color-indigo-60);
             margin-bottom: 1rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .hero-subtitle {
             font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--wa-color-indigo-30);
             margin-bottom: 2rem;
+        }
+
+        @media (prefers-color-scheme: light) {
+            .hero-title {
+                color: var(--wa-color-yellow-90);
+            }
+
+            .hero-subtitle {
+                color: var(--wa-color-slate-600);
+            }
+
+            .action-card h3 {
+                color: var(--wa-color-slate-100);
+            }
+
+            .action-card p {
+                color: var(--wa-color-slate-300);
+            }
+
+            .empty-state {
+                color: var(--wa-color-slate-600);
+            }
+
+            .empty-state h3 {
+                color: var(--wa-color-slate-900);
+            }
+
+            .empty-state p {
+                color: var(--wa-color-slate-600);
+            }
         }
 
         .action-grid {
@@ -159,7 +195,7 @@
             padding: 1.5rem;
             border-radius: 1rem;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            border: 1px solid var(--wa-color-slate-600);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
         }
@@ -174,7 +210,7 @@
             padding: 2rem;
             border-radius: 1rem;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            border: 1px solid var(--wa-color-slate-600);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             margin-bottom: 2rem;
         }
@@ -182,7 +218,7 @@
         .empty-state {
             text-align: center;
             padding: 4rem 2rem;
-            color: #64748b;
+            color: var(--wa-color-slate-500);
         }
 
         .empty-state wa-icon {
@@ -193,7 +229,11 @@
 
         .empty-state h3 {
             margin-bottom: 0.5rem;
-            color: #1e293b;
+            color: var(--wa-color-slate-300);
+        }
+
+        .empty-state p {
+            color: var(--wa-color-slate-400);
         }
 
         .action-button {
@@ -213,25 +253,25 @@
         }
 
         .action-button.primary {
-            background: #3b82f6;
+            background: var(--wa-color-blue-600);
             color: white;
-            border: 1px solid #2563eb;
+            border: 1px solid var(--wa-color-blue-700);
         }
 
         .action-button.primary:hover {
-            background: #2563eb;
+            background: var(--wa-color-blue-700);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
         .action-button.success {
-            background: #10b981;
+            background: var(--wa-color-green-40);
             color: white;
-            border: 1px solid #059669;
+            border: 1px solid var(--wa-color-green-10);
         }
 
         .action-button.success:hover {
-            background: #059669;
+            background: var(--wa-color-green-20);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
@@ -250,9 +290,27 @@
             padding: 2rem;
             border-radius: 1rem;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            border: 1px solid var(--wa-color-slate-600);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             margin-bottom: 2rem;
+        }
+
+        /* Web Awesome Button Styling */
+        wa-button {
+            --wa-button-border-radius: 0.5rem;
+            --wa-button-font-weight: 500;
+        }
+
+        wa-button[variant="brand"] {
+            --wa-button-background-color: var(--wa-color-blue-600);
+            --wa-button-border-color: var(--wa-color-blue-700);
+            --wa-button-hover-background-color: var(--wa-color-blue-700);
+        }
+
+        wa-button[variant="success"] {
+            --wa-button-background-color: var(--wa-color-emerald-600);
+            --wa-button-border-color: var(--wa-color-emerald-700);
+            --wa-button-hover-background-color: var(--wa-color-emerald-700);
         }
 
         @media (max-width: 768px) {
@@ -289,10 +347,10 @@
 
     <div class="action-grid">
         <div class="action-card">
-            <h3 style="margin-bottom: 1rem; color: #f1f5f9;">
-                <wa-icon name="arrows-rotate" style="color: #3b82f6;"></wa-icon> Load Products
+            <h3 style="margin-bottom: 1rem;">
+                <wa-icon name="arrows-rotate" style="color: var(--wa-color-blue-40);"></wa-icon> Load Products
             </h3>
-            <p style="color: #94a3b8; margin-bottom: 1rem;">View all products in your catalog</p>
+            <p style="margin-bottom: 1rem;">View all products in your catalog</p>
             <div style="display: flex; justify-content: center;">
                 <wa-button appearance="accent" variant="brand" size="large" hx-get="/products" hx-target="#product-table" hx-swap="innerHTML">
                     <wa-icon slot="end" name="undo"></wa-icon>
@@ -302,24 +360,25 @@
         </div>
 
         <div class="action-card">
-            <h3 style="margin-bottom: 1rem; color: #f1f5f9;">
-                <wa-icon name="plus" style="color: #10b981;"></wa-icon> Add Product
+            <h3 style="margin-bottom: 1rem;">
+                <wa-icon name="plus" style="color: var(--wa-color-green-60);"></wa-icon> Add Product
             </h3>
-            <p style="color: #94a3b8; margin-bottom: 1rem;">Create a new product entry</p>
+            <p style="margin-bottom: 1rem;">Create a new product entry</p>
             <div style="display: flex; justify-content: center;">
                 <wa-button variant="success" size="large" hx-get="/fragments/productForm" hx-target="#add-product-form" hx-swap="innerHTML" onclick="document.getElementById('add-product-form').style.display='block'">
+                    <wa-icon slot="end" name="plus"></wa-icon>
                     Add Product
                 </wa-button>
             </div>
         </div>
 
         <div class="action-card">
-            <h3 style="margin-bottom: 1rem; color: #f1f5f9;">
-                <wa-icon name="magnifying-glass" style="color: #8b5cf6;"></wa-icon> Search Products
+            <h3 style="margin-bottom: 1rem;">
+                <wa-icon name="magnifying-glass" style="color: var(--wa-color-purple-40);"></wa-icon> Search Products
             </h3>
-            <p style="color: #94a3b8; margin-bottom: 1rem;">Find products by name or details</p>
+            <p style="margin-bottom: 1rem;">Find products by name or details</p>
             <div style="display: flex; justify-content: center;">
-                <wa-button size="large" onclick="location.href='/products/search'">
+                <wa-button class="search-button" size="large" onclick="location.href='/products/search'">
                     <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
                     Search Products
                 </wa-button>
@@ -352,6 +411,7 @@
     // Wait for all Web Awesome components to be ready
     await allDefined();
     console.log('All Web Awesome components are ready!');
+
 </script>
 
 </body>

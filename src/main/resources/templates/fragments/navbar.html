@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Navigation Fragment</title>
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/styles/webawesome.css" />
     <style>
         .professional-navbar {
             background: rgba(15, 23, 42, 0.95);
@@ -12,8 +13,6 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-
-            /* --- Changes Here --- */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,7 +20,7 @@
         }
 
         .nav-container {
-            width: 100%; /* Let it fill the available space */
+            width: 100%;
             max-width: 1200px;
             padding: 0 2rem;
             display: flex;
@@ -34,20 +33,20 @@
             align-items: center;
             font-size: 1.5rem;
             font-weight: 700;
-            color: #f1f5f9;
+            color: var(--wa-color-slate-100);
             text-decoration: none;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .nav-brand:hover {
-            color: #3b82f6;
+            color: var(--wa-color-blue-500);
             transform: translateX(2px);
         }
 
         .nav-brand wa-icon {
             margin-right: 0.75rem;
-            color: #3b82f6;
+            color: var(--wa-color-blue-500);
             font-size: 1.75rem;
         }
 
@@ -62,7 +61,7 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.625rem 1rem;
-            color: #e2e8f0;
+            color: var(--wa-color-slate-200);
             text-decoration: none;
             border-radius: 0.5rem;
             transition: all 0.2s ease;
@@ -75,7 +74,7 @@
 
         .nav-button:hover {
             background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
+            color: var(--wa-color-blue-500);
             border-color: rgba(59, 130, 246, 0.2);
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);

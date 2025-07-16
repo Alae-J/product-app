@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Product Table Fragment</title>
     <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <!-- Colors -->
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/styles/color/palettes/default.css" />
+
+    <link rel="stylesheet" href="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/styles/webawesome.css" />
+    <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-beta.2/dist/webawesome.loader.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .products-table {
@@ -84,7 +89,7 @@
 
         .product-title {
             font-weight: 600;
-            color: #1e293b;
+            color: var(--wa-color-cyan-50);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -92,7 +97,7 @@
 
         .product-price {
             font-weight: 700;
-            color: #059669;
+            color: var(--wa-color-cyan-50);
             font-size: 1.1rem;
         }
 
@@ -116,6 +121,11 @@
             color: #94a3b8;
             font-style: italic;
             font-size: 0.875rem;
+        }
+
+        .variants-container {
+            position: relative;
+            cursor: pointer;
         }
         
         .action-buttons {
@@ -261,7 +271,10 @@
             <td>
                 <div th:if="${product.variant != null and product.variant != 'null' and product.variant != ''}"
                      class="variants-container"
-                     th:id="'variants-' + ${product.id}">
+                     th:id="'variants-' + ${product.id}"
+                     th:attr="data-all-url=@{/products/{id}/variants(id=${product.id})}, data-limited-url=@{/products/{id}/variants-limited(id=${product.id})}"
+                     onmouseenter="htmx.ajax('GET', this.dataset.allUrl, {target: this, swap: 'innerHTML'});"
+                     onmouseleave="htmx.ajax('GET', this.dataset.limitedUrl, {target: this, swap: 'innerHTML'});">
                     <div th:replace="~{fragments/products-table :: variant-display(${product.variant}, ${product.id})}"></div>
                 </div>
                 <span th:if="${product.variant == null or product.variant == 'null' or product.variant == ''}"
@@ -300,6 +313,7 @@
                             Delete Product
                         </wa-dropdown-item>
                     </wa-dropdown>
+                    <i th:if="${product.isFavorite}" class="fas fa-star favorite-star" title="Favorite"></i>
                 </div>
             </td>
         </tr>

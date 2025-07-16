@@ -34,18 +34,18 @@ class ProductImportService(private val productRepository: ProductRepository) {
             val allVariants = prod.optJSONArray("variants") ?: JSONArray()
             
             // Limit to 3 variants maximum
-            val limitedVariants = JSONArray()
-            val maxVariants = minOf(3, allVariants.length())
-            for (j in 0 until maxVariants) {
-                limitedVariants.put(allVariants.getJSONObject(j))
-            }
-            
-            val firstPrice = limitedVariants .optJSONObject(0)?.optBigDecimal("price")
+            // val limitedVariants = JSONArray()
+            // val maxVariants = minOf(3, allVariants.length())
+            // for (j in 0 until maxVariants) {
+            //     limitedVariants.put(allVariants.getJSONObject(j))
+            // }
+
+            val firstPrice = allVariants.optJSONObject(0)?.optBigDecimal("price")
 
             val product = Product(
                   title = title,
                   price = firstPrice,
-                variant = limitedVariants.toString()
+                variant = allVariants.toString()
             )
 
             productRepository.save(product)

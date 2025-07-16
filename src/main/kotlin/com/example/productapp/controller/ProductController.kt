@@ -56,6 +56,22 @@ class ProductController(private val productService: ProductService) {
         return "fragments/products-table :: table"
     }
 
+    @GetMapping("/products/{id}/variants")
+    fun getProductVariants(@PathVariable id: Long, model: Model): String {
+        val product = productService.findById(id) ?: return "fragments/empty :: empty"
+        model.addAttribute("product", product)
+        model.addAttribute("variantText", convertJsonToCommaSeparated(product.variant))
+        return "fragments/product-variants :: variants"
+    }
+
+    @GetMapping("/products/{id}/variants-limited")
+    fun getProductVariantsLimited(@PathVariable id: Long, model: Model): String {
+        val product = productService.findById(id) ?: return "fragments/empty :: empty"
+        model.addAttribute("variantJson", product.variant)
+        model.addAttribute("productId", id)
+        return "fragments/products-table :: variant-display"
+    }
+
     @GetMapping("/products/search")
     fun searchPage(model: Model): String {
         model.addAttribute("products", productService.findAll())
